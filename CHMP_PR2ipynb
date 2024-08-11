@@ -1,0 +1,117 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMNYaXOottxt1i5kcrVKgag",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sournorm/CHMP/blob/main/CHMP_PR2ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Запорожан Сергій Андрійович\n",
+        "Лабораторна робота №2\n",
+        "\n",
+        "ФІТ 2-8\n",
+        "\n",
+        "\n",
+        "Варіант№7"
+      ],
+      "metadata": {
+        "id": "CxDqOIHkRdbG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "def f(x):\n",
+        "    return x**4 + 2*x**3 + 2*x**2 + 6*x - 5\n",
+        "\n",
+        "def df(x):\n",
+        "    return 4*x**3 + 6*x**2 + 4*x + 6  # Похідна функції f(x)\n",
+        "\n",
+        "eps = 0.0001\n",
+        "\n",
+        "def half_division_method(a, b, eps):\n",
+        "    while abs(a - b) > eps:\n",
+        "        mid = (a + b) / 2\n",
+        "        if f(a) * f(mid) < 0:\n",
+        "            b = mid\n",
+        "        else:\n",
+        "            a = mid\n",
+        "    return (a + b) / 2\n",
+        "\n",
+        "def chord_method(a, b, eps):\n",
+        "    if f(a) * df(a) > 0:\n",
+        "        x0 = a\n",
+        "        xi = b\n",
+        "    else:\n",
+        "        x0 = b\n",
+        "        xi = a\n",
+        "\n",
+        "    xi_1 = xi - (xi - x0) * f(xi) / (f(xi) - f(x0))\n",
+        "    while abs(xi_1 - xi) > eps:\n",
+        "        xi = xi_1\n",
+        "        xi_1 = xi - (xi - x0) * f(xi) / (f(xi) - f(x0))\n",
+        "    return xi_1\n",
+        "\n",
+        "a1, b1 = -2, 0\n",
+        "a2, b2 = 0, 1\n",
+        "\n",
+        "root_half_division1 = half_division_method(a1, b1, eps)\n",
+        "root_chord1 = chord_method(a1, b1, eps)\n",
+        "\n",
+        "root_half_division2 = half_division_method(a2, b2, eps)\n",
+        "root_chord2 = chord_method(a2, b2, eps)\n",
+        "\n",
+        "print(f'Корінь методом половинного ділення на інтервалі [-2, 0]: {root_half_division1:.5f}')\n",
+        "print(f'Корінь методом хорд на інтервалі [-2, 0]: {root_chord1:.5f}')\n",
+        "\n",
+        "print(f'Корінь методом половинного ділення на інтервалі [0, 1]: {root_half_division2:.5f}')\n",
+        "print(f'Корінь методом хорд на інтервалі [0, 1]: {root_chord2:.5f}')\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IWMz614BRwhl",
+        "outputId": "fea1f3a8-89b6-4fc7-876c-4d6ff97c6dd9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Корінь методом половинного ділення на інтервалі [-2, 0]: -0.00003\n",
+            "Корінь методом хорд на інтервалі [-2, 0]: -2.48910\n",
+            "Корінь методом половинного ділення на інтервалі [0, 1]: 0.61032\n",
+            "Корінь методом хорд на інтервалі [0, 1]: 0.61028\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
