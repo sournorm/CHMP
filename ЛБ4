@@ -1,0 +1,484 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP6nKnrP/WUjoEKObFZ7Yn7",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sournorm/CHMP/blob/main/%D0%9B%D0%914\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Запорожан Сергій Андрійович\n",
+        "Лабораторна робота №4\n",
+        "\n",
+        "ФІТ 2-8\n",
+        "\n",
+        "\n",
+        "Варіант№7"
+      ],
+      "metadata": {
+        "id": "dO0fGEtkZF73"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qKYrRQbzYtv7",
+        "outputId": "0c373091-ce8a-4178-86d8-75e85fa6d474"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.10/dist-packages (1.26.4)\n"
+          ]
+        }
+      ],
+      "source": [
+        "!pip install numpy"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "# Отримання версії бібліотеки NumPy\n",
+        "numpy_version = np.__version__\n",
+        "print(f\"NumPy version: {numpy_version}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5EF5WpbPehN4",
+        "outputId": "d947c5db-08bf-4d39-ebbf-4e464f0624e5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "NumPy version: 1.26.4\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#1\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[2, 3, 1],\n",
+        "              [-1, 1, 0],\n",
+        "              [1, 2, -1]])\n",
+        "\n",
+        "B = np.array([[1, 2, 1],\n",
+        "              [0, 1, 2],\n",
+        "              [3, 1, 1]])\n",
+        "\n",
+        "AB = np.dot(A, B)\n",
+        "BA = np.dot(B, A)\n",
+        "\n",
+        "C = AB - BA\n",
+        "\n",
+        "print(\"Матриця C:\")\n",
+        "print(C)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ttUBfvL1emVZ",
+        "outputId": "9f0fdead-dae9-4fd1-8025-e7dd82785385"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Матриця C:\n",
+            "[[ 4  1  9]\n",
+            " [-2 -6  3]\n",
+            " [-8 -9  2]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#2\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[5, 0, 0, 0],\n",
+        "              [0, -2, 0, 0],\n",
+        "              [0, 0, 3, 0],\n",
+        "              [0, 0, 0, 2]])\n",
+        "\n",
+        "A_squared = np.linalg.matrix_power(A, 2)\n",
+        "\n",
+        "print(\"Матриця A в квадраті:\")\n",
+        "print(A_squared)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "tZt-9IT_f_QS",
+        "outputId": "4c2821dc-44dd-4b66-d15b-9771253f1a6a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Матриця A в квадраті:\n",
+            "[[25  0  0  0]\n",
+            " [ 0  4  0  0]\n",
+            " [ 0  0  9  0]\n",
+            " [ 0  0  0  4]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#3\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[3, 5],\n",
+        "              [6, -1]])\n",
+        "\n",
+        "B = np.array([[2, 1],\n",
+        "              [-3, 2]])\n",
+        "\n",
+        "\n",
+        "C = np.dot(A, B)\n",
+        "\n",
+        "print(\"Добуток матриць A і B:\")\n",
+        "print(C)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WITXhgmfgoNk",
+        "outputId": "30275c1d-54e8-47b4-8bab-f7f6223c0772"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Добуток матриць A і B:\n",
+            "[[-9 13]\n",
+            " [15  4]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#4\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[2, 3, 4],\n",
+        "              [1, 0, 6],\n",
+        "              [7, 8, 9]])\n",
+        "\n",
+        "determinant = np.linalg.det(A)\n",
+        "\n",
+        "print(\"Визначник матриці :\", determinant)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8Il5DWMHiO8o",
+        "outputId": "2a28097e-571d-466e-f97b-e2fe76b92bb8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Визначник матриці : 35.00000000000001\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#5\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[1, 2, 3, 4],\n",
+        "              [-2, 1, -4, 3],\n",
+        "              [3, -4, -1, 2],\n",
+        "              [4, 3, -2, -1]])\n",
+        "\n",
+        "determinant = np.linalg.det(A)\n",
+        "\n",
+        "print(\"Визначник матриці :\", determinant)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qHG_D_ydiS7j",
+        "outputId": "70b9d270-5016-4306-e8f1-ee6758b36a47"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Визначник матриці : 900.0000000000009\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#6\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[1, 2, -3],\n",
+        "              [0, 1, 2],\n",
+        "              [0, 0, 1]])\n",
+        "\n",
+        "A_inverse = np.linalg.inv(A)\n",
+        "\n",
+        "print(\"Обернена матриця :\")\n",
+        "print(A_inverse)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "74ojjYr3iyoH",
+        "outputId": "8a4e4464-edb2-4d23-8077-a7b6fe81aa2d"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Обернена матриця :\n",
+            "[[ 1. -2.  7.]\n",
+            " [ 0.  1. -2.]\n",
+            " [ 0.  0.  1.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#7\n",
+        "import numpy as np\n",
+        "\n",
+        "A = np.array([[1, 2, 3, 4],\n",
+        "              [3, -1, 2, 5],\n",
+        "              [1, 2, 3, 4],\n",
+        "              [1, 3, 4, 5]])\n",
+        "\n",
+        "rank = np.linalg.matrix_rank(A)\n",
+        "\n",
+        "print(\"Ранг матриці :\", rank)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wQ9M8TVAjFwM",
+        "outputId": "0d916e51-7105-46a9-f93d-0485f14352d9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Ранг матриці : 2\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Матричний метод\n",
+        "def matrix_method(coefficients, constants):\n",
+        "    inverse_matrix = np.linalg.inv(coefficients)\n",
+        "    return np.dot(inverse_matrix, constants)\n",
+        "\n",
+        "# Метод Крамера\n",
+        "def cramer_method(coefficients, constants):\n",
+        "    det_coefficients = np.linalg.det(coefficients)\n",
+        "    solutions = []\n",
+        "    for i in range(len(coefficients)):\n",
+        "        modified_coefficients = np.copy(coefficients)\n",
+        "        modified_coefficients[:, i] = constants\n",
+        "        solutions.append(round(np.linalg.det(modified_coefficients) / det_coefficients, 1))  # Округлення до десятих\n",
+        "    return solutions\n",
+        "\n",
+        "# Метод Гауса\n",
+        "def gauss_method(a, b):\n",
+        "    n = len(b)\n",
+        "    for k in range(n-1):\n",
+        "        for i in range(k+1, n):\n",
+        "            if a[i, k] != 0.0:\n",
+        "                lam = a[i, k] / a[k, k]\n",
+        "                a[i, k+1:n] -= lam * a[k, k+1:n]\n",
+        "                b[i] -= lam * b[k]\n",
+        "    x = np.zeros(n)\n",
+        "    for k in range(n-1, -1, -1):\n",
+        "        x[k] = (b[k] - np.dot(a[k, k+1:n], x[k+1:n])) / a[k, k]\n",
+        "    return x\n",
+        "\n",
+        "def main():\n",
+        "    coefficients = np.array([[3, -5, 3],\n",
+        "                             [1, 2, 1],\n",
+        "                             [2, 7, -1]], dtype=float)\n",
+        "\n",
+        "    constants = np.array([1, 4, 8], dtype=float)\n",
+        "\n",
+        "    # Матричний метод\n",
+        "    x_matrix = matrix_method(coefficients, constants)\n",
+        "    print(\"Матричний метод:\", x_matrix)\n",
+        "\n",
+        "    # Метод Крамера\n",
+        "    x_cramer = cramer_method(coefficients, constants)\n",
+        "    print(\"Метод Крамера:\", x_cramer)\n",
+        "\n",
+        "    # Метод Гауса\n",
+        "    x_gauss = gauss_method(coefficients.copy(), constants.copy())\n",
+        "    print(\"Метод Гауса:\", x_gauss)\n",
+        "\n",
+        "    # Перевірка за допомогою linalg.solve()\n",
+        "    x_solve = np.linalg.solve(coefficients, constants)\n",
+        "    print(\"Розв'язок з linalg.solve:\", x_solve)\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    main()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "47iaHa5Jnv-G",
+        "outputId": "89ce7aa5-cff5-4b73-e4b2-901d6f42e1e8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Матричний метод: [1. 1. 1.]\n",
+            "Метод Крамера: [1.0, 1.0, 1.0]\n",
+            "Метод Гауса: [1. 1. 1.]\n",
+            "Розв'язок з linalg.solve: [1. 1. 1.]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#2. Розв’язати 1 завдання з наведених нижче.\n",
+        "#6.\n",
+        "import numpy as np\n",
+        "\n",
+        "# Введіть розміри матриці N x M\n",
+        "N = 5  # Кількість рядків\n",
+        "M = 4  # Кількість стовпців\n",
+        "\n",
+        "# Створення матриці A з випадковими цілими числами від -10 до 10\n",
+        "A = np.random.randint(-10, 11, (N, M))\n",
+        "\n",
+        "# Підрахунок кількості негативних елементів у кожному рядку\n",
+        "negatives_in_rows = np.sum(A < 0, axis=1)\n",
+        "\n",
+        "# Підрахунок кількості негативних елементів у кожному стовпці\n",
+        "negatives_in_columns = np.sum(A < 0, axis=0)\n",
+        "\n",
+        "print(\"Матриця A:\")\n",
+        "print(A)\n",
+        "print(\"\\nКількість негативних елементів у кожному рядку:\")\n",
+        "print(negatives_in_rows)\n",
+        "print(\"\\nКількість негативних елементів у кожному стовпці:\")\n",
+        "print(negatives_in_columns)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cevIbpOdqzK9",
+        "outputId": "00036fbc-74cc-4b93-c4cb-18414a5e7dfa"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Матриця A:\n",
+            "[[ -4  -6  -1  -8]\n",
+            " [-10   6   8  -7]\n",
+            " [  2   8   3   9]\n",
+            " [  7  -7   7  -4]\n",
+            " [  5  -4 -10   3]]\n",
+            "\n",
+            "Кількість негативних елементів у кожному рядку:\n",
+            "[4 2 0 2 2]\n",
+            "\n",
+            "Кількість негативних елементів у кожному стовпці:\n",
+            "[2 3 2 3]\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
