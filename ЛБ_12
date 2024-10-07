@@ -1,0 +1,350 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNnE4F+VJOwu1twXx+doQe2",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sournorm/CHMP/blob/main/%D0%9B%D0%91_12\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Запорожан Сергій\n",
+        "Лабораторна робота №12\n",
+        "\n",
+        "\n",
+        "Варіант 7\n",
+        "\n",
+        "Група 2-8"
+      ],
+      "metadata": {
+        "id": "_Ivf4SAiX0gT"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Приклад 1\n"
+      ],
+      "metadata": {
+        "id": "so99l_TKX4za"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 13,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jLElDeSNR1uT",
+        "outputId": "fa99e895-411e-4525-d17c-deec5d96aa17"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Left rectangle: 0.34663\n",
+            "Right rectangle: 0.33791\n",
+            "Average rectangle: 0.34218\n",
+            "Check for the rectangle method = 0.34221\n"
+          ]
+        }
+      ],
+      "source": [
+        "from scipy import integrate\n",
+        "import numpy as np\n",
+        "\n",
+        "# Задаємо межі інтегрування\n",
+        "a = 1.4\n",
+        "b = 2.1\n",
+        "n = 10\n",
+        "h = (b - a) / n\n",
+        "\n",
+        "# Определяем функцию\n",
+        "def f1(x):\n",
+        "    return 1 / np.sqrt(3 * x - 1)\n",
+        "\n",
+        "# Обчислюємо площу під прямокутниками (лівий)\n",
+        "def left_rec(f1, a, b):\n",
+        "    sum = 0.0\n",
+        "    for i in range(n):\n",
+        "        sum += f1(a + i * h)\n",
+        "    return sum * h\n",
+        "\n",
+        "# Виводимо результат для лівих прямокутників\n",
+        "print(\"Left rectangle:\", round(left_rec(f1, a, b), 5))\n",
+        "\n",
+        "# Обчислюємо площу під прямокутниками (правий)\n",
+        "def right_rec(f1, a, b):\n",
+        "    sum = 0.0\n",
+        "    for i in range(1, n + 1):\n",
+        "        sum += f1(a + i * h)\n",
+        "    return sum * h\n",
+        "\n",
+        "# Виводимо результат для правих прямокутників\n",
+        "print(\"Right rectangle:\", round(right_rec(f1, a, b), 5))\n",
+        "\n",
+        "# Обчислюємо площу під прямокутниками (середній)\n",
+        "def aver_rec(f1, a, b):\n",
+        "    sum = 0.0\n",
+        "    for i in range(n):\n",
+        "        sum += f1(a + (i + 0.5) * h)  # Для середнього прямокутника\n",
+        "    return sum * h\n",
+        "\n",
+        "# Виводимо результат для середніх прямокутників\n",
+        "print(\"Average rectangle:\", round(aver_rec(f1, a, b), 5))\n",
+        "\n",
+        "# Перевірка\n",
+        "v, err = integrate.quad(f1, a, b)\n",
+        "print(\"Check for the rectangle method =\", round(v, 5))\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from scipy import integrate\n",
+        "import numpy as np\n",
+        "\n",
+        "# Задаємо функцію, яку необхідно інтегрувати\n",
+        "def f(x):\n",
+        "    return 1 / np.sqrt(3 * x - 1)\n",
+        "\n",
+        "# Задаємо межі інтегрування та початкову кількість розбиттів\n",
+        "a = 1.4\n",
+        "b = 2.1\n",
+        "n = 8\n",
+        "h = (b - a) / n\n",
+        "# Обчислюємо значення інтегралу методом Симпсона\n",
+        "def simpson_rule(f, a, b, n):\n",
+        "    if n % 2 != 0:\n",
+        "        raise ValueError(\"Кількість розбиттів n повинна бути парною\")\n",
+        "\n",
+        "    h = (b - a) / n\n",
+        "    integr = f(a) + f(b)\n",
+        "\n",
+        "    for i in range(1, n):\n",
+        "        k = a + i * h\n",
+        "        if i % 2 == 0:\n",
+        "            integr += 2 * f(k)\n",
+        "        else:\n",
+        "            integr += 4 * f(k)\n",
+        "\n",
+        "    integr *= h / 3  # Останній множник\n",
+        "    return integr\n",
+        "\n",
+        "# Виводимо результат\n",
+        "print(\"Simpson method:\", round(simpson_rule(f, a, b, n), 3))\n",
+        "\n",
+        "# Перевірка за допомогою scipy\n",
+        "v, err = integrate.quad(f, a, b)  # Використовуючи ті ж межі для перевірки\n",
+        "print(\"Check for the Simpson method =\", round(v, 3))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wyVWjD4oWnB1",
+        "outputId": "765c2a63-df5b-449a-ecbd-d943b93708b6"
+      },
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Simpson method: 0.342\n",
+            "Check for the Simpson method = 0.342\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from scipy import integrate\n",
+        "import numpy as np\n",
+        "\n",
+        "# Задаємо функцію, яку необхідно інтегрувати\n",
+        "def f(x):\n",
+        "    return 1 / np.sqrt(3 * x - 1)\n",
+        "a = 1.4\n",
+        "b = 2.1\n",
+        "n = 20\n",
+        "h = (b - a) / n\n",
+        "def trapezoidal_rule(f, a, b, n):\n",
+        "    h = (b - a) / n\n",
+        "    total_sum = f(a) + f(b)\n",
+        "\n",
+        "    for i in range(1, n):\n",
+        "        x = a + i * h\n",
+        "        total_sum += 2 * f(x)\n",
+        "\n",
+        "    integral = h / 2 * total_sum\n",
+        "    return integral\n",
+        "integral2 = trapezoidal_rule(f, a, b, n)\n",
+        "print(\"Trapezoidal method:\", round(integral2, 3))\n",
+        "v, err = integrate.quad(f, a, b)\n",
+        "print(\"Check for the trapezoidal method =\", round(v, 5))\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vW55dk83XIXG",
+        "outputId": "475845ca-7c94-4cae-969a-8e20550ee037"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Trapezoidal method: 0.342\n",
+            "Check for the trapezoidal method = 0.34221\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Приклад 2\n"
+      ],
+      "metadata": {
+        "id": "3X6YeTFeX_Fm"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from scipy import integrate\n",
+        "import numpy as np\n",
+        "\n",
+        "def f(x):\n",
+        "    return np.log10(x**2 + 1) / x\n",
+        "\n",
+        "a = 0.8\n",
+        "b = 1.6\n",
+        "n = 8\n",
+        "h = (b - a) / n\n",
+        "def simpson_rule(f, a, b, n):\n",
+        "    if n % 2 != 0:\n",
+        "        raise ValueError(\"Кількість розбиттів n повинна бути парною\")\n",
+        "    h = (b - a) / n\n",
+        "    integr = f(a) + f(b)\n",
+        "\n",
+        "    for i in range(1, n):\n",
+        "        k = a + i * h\n",
+        "        if i % 2 == 0:\n",
+        "            integr += 2 * f(k)\n",
+        "        else:\n",
+        "            integr += 4 * f(k)\n",
+        "\n",
+        "    integr *= h / 3\n",
+        "    return integr\n",
+        "print(\"Simpson method:\", round(simpson_rule(f, a, b, n), 3))\n",
+        "v, err = integrate.quad(f, a, b)\n",
+        "print(\"Check for the Simpson method =\", round(v, 3))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "diZQaTaaYCCr",
+        "outputId": "b6db400b-576b-4c39-9097-a3e8a4261977"
+      },
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Simpson method: 0.254\n",
+            "Check for the Simpson method = 0.254\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Приклад 3"
+      ],
+      "metadata": {
+        "id": "Lt3TrA6eaY6p"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from scipy import integrate\n",
+        "import numpy as np\n",
+        "\n",
+        "def f(x):\n",
+        "    return 1 / np.sqrt(0.2 * x**2 + 1)\n",
+        "a = 1.3\n",
+        "b = 2.5\n",
+        "n = 20\n",
+        "h = (b - a) / n\n",
+        "def trapezoidal_rule(f, a, b, n):\n",
+        "    h = (b - a) / n\n",
+        "    sum = f(a) + f(b)\n",
+        "\n",
+        "    for i in range(1, n):\n",
+        "        x = a + i * h\n",
+        "        sum += 2 * f(x)\n",
+        "\n",
+        "    integral = h / 2 * sum\n",
+        "    return integral\n",
+        "\n",
+        "integral2 = trapezoidal_rule(f, a, b, n)\n",
+        "\n",
+        "print(\"Trapezoidal method:\", round(integral2, 3))\n",
+        "\n",
+        "v, err = integrate.quad(f, a, b)\n",
+        "print(\"Check for the trapezoidal method =\", round(v, 5))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pW13zQmqaclE",
+        "outputId": "a6e9602b-bfd9-43d8-dc9a-8ff449e08173"
+      },
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Trapezoidal method: 0.916\n",
+            "Check for the trapezoidal method = 0.91597\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
